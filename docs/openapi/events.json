@@ -115,7 +115,7 @@
           "calendar"
         ],
         "summary": "Get Events",
-        "description": "Возвращает список событий с возможностью фильтрации по ID, архивному статусу и типу.\n\nТипы событий:\n- 1: Встречи/планерки\n- 2: Разработка/техническая работа  \n- 3: Демо/презентации\n- 4: Неформальные события",
+        "description": "Возвращает список событий с возможностью фильтрации по ID, архивному статусу и типу.\n\nТипы событий: \n- 0 — Все\n- 1 — Личное\n- 2 — Семья\n- 3 — Работа\n- 4 — Нет типа.",
         "operationId": "get_events_api_Events_get",
         "parameters": [
           {
@@ -131,10 +131,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Comma-separated list of event IDs (e.g., '1,2,3')",
+              "description": "ID событий через запятую (например, '1,2,3')",
               "title": "Ids"
             },
-            "description": "Comma-separated list of event IDs (e.g., '1,2,3')"
+            "description": "ID событий через запятую (например, '1,2,3')"
           },
           {
             "name": "isArchive",
@@ -149,11 +149,11 @@
                   "type": "null"
                 }
               ],
-              "description": "Filter archived events (currently not implemented)",
+              "description": "Показывать прошедшие события",
               "default": false,
               "title": "Isarchive"
             },
-            "description": "Filter archived events (currently not implemented)"
+            "description": "Показывать прошедшие события"
           },
           {
             "name": "type",
@@ -168,10 +168,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Comma-separated list of event types (e.g., '1,2')",
+              "description": "Тип событий через запятую (например, '1,2')",
               "title": "Type"
             },
-            "description": "Comma-separated list of event types (e.g., '1,2')"
+            "description": "Тип событий через запятую (например, '1,2')"
           }
         ],
         "responses": {

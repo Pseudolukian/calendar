@@ -1,6 +1,7 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from datetime import datetime
 from typing import Optional
+import time
 from sqlalchemy import Column, Integer, String, DateTime
 from connect.sqlite import Base
 
@@ -18,19 +19,28 @@ class Event(Base):
 #================== Input data models =======================#
 
 class EventGetByDateRange(BaseModel):
-    tf_days: int = Field(default=0, description="Days from today to start filtering")
-    after_days: int = Field(default=0, description="Days from today to end filtering")
+    tf_days: int = Field(default=0, description="Количество дней от текущей даты для начала фильтрации")
+    after_days: int = Field(default=0, description="Количество дней от текущей даты для окончания фильтрации")
 
 class EventGetByFilters(BaseModel):
-    ids: Optional[str] = Field(default=None, description="Comma-separated list of event IDs")
-    isArchive: Optional[bool] = Field(default=False, description="Filter archived events")
-    type: Optional[str] = Field(default=None, description="Comma-separated list of event types")
+    ids: Optional[str] = Field(default=None, description="ID событий через запятую")
+    isArchive: Optional[bool] = Field(default=False, description="Показывать прошедшие события")
+    type: Optional[str] = Field(default=None, description="Тип событий через запятую")
 
 class EventCreate(BaseModel):
-    Start: Optional[int] = Field(default=None, description="Event start date as Unix timestamp (seconds)")
-    Name: str = Field(..., description="Event name")
-    Note: Optional[str] = Field(default=None, description="Event note")
-    Type: int = Field(default=0, description="Event type")
+    Start: Optional[int] = Field(default=None, description="Unix timestamp в секундах (по умолчанию - текущее время)")
+    Name: str = Field(..., description="Название события")
+    Note: Optional[str] = Field(default=None, description="Описание события")
+    Type: int = Field(default=0, description="Тип события (0-4)", ge=0, le=4)
+    
+    @field_validator('Start')
+    @classmethod
+    def validate_start_time(cls, v):
+        if v is not None:
+            current_timestamp = int(time.time())
+            if v < current_timestamp:
+                raise ValueError(f'Время начала не может быть в прошлом. Текущий timestamp: {current_timestamp}, указано: {v}')
+        return v
 
 #=================== Response data models =======================#
 

@@ -57,9 +57,7 @@ theme:
 # Plugins
 plugins:
   - search
-  - macros:
-      module_name: docs/macros/calendar_macros
-      include_dir: docs/macros
+  - markdownextradata
   - neoteroi.mkdocsoad:
       use_pymdownx: true
 
@@ -70,8 +68,13 @@ markdown_extensions:
       line_spans: __span
       pygments_lang_class: true
   - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.superfences
+  - pymdownx.snippets:
+      base_path: docs
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.tasklist:
@@ -90,22 +93,25 @@ nav:
     - Calendar: api/calendar.md
     - Event: api/event.md
     - Events: api/events.md
-  - Controls:
-    - Calendar: controls/calendar.md
-    - Event: controls/event.md
-    - Events: controls/events.md
-  - DAL:
-    - Calendar: dal/calendar.md
-    - Event: dal/event.md
-    - Events: dal/events.md  
-  - Examples: examples.md
+  - ООП:
+    - Наследование классов в ООП: oop.md  
 
 # Extra CSS and JS
 extra_css:
   - stylesheets/extra.css
 
+extra_javascript:
+  - https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js
+
 extra:
+  
   endpoints:
     calendar: "api/Calendar"
     events: "api/Events"
     event: "api/Event"
+    
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/yourusername/calendar-api
+    - icon: fontawesome/brands/python
+      link: https://www.python.org

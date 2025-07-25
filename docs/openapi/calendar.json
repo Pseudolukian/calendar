@@ -123,11 +123,11 @@
             "required": false,
             "schema": {
               "type": "integer",
-              "description": "Days from today to start filtering (0 = tomorrow, -1 = today, 1 = tomorrow, etc.)",
+              "description": "Количество дней от текущей даты для начала фильтрации (0 — с завтрашнего дня, -1 — с сегодняшнего дня, 1 — с послезавтрашнего дня)",
               "default": 0,
               "title": "Tf Days"
             },
-            "description": "Days from today to start filtering (0 = tomorrow, -1 = today, 1 = tomorrow, etc.)"
+            "description": "Количество дней от текущей даты для начала фильтрации (0 — с завтрашнего дня, -1 — с сегодняшнего дня, 1 — с послезавтрашнего дня)"
           },
           {
             "name": "after_days",
@@ -135,11 +135,11 @@
             "required": false,
             "schema": {
               "type": "integer",
-              "description": "Days from today to end filtering (0 = next week, 1 = tomorrow, 7 = next week)",
+              "description": "Количество дней от текущей даты для окончания фильтрации (0 = до следующей недели, 1 = до завтра, 7 = до следующей недели и т.д.)",
               "default": 0,
               "title": "After Days"
             },
-            "description": "Days from today to end filtering (0 = next week, 1 = tomorrow, 7 = next week)"
+            "description": "Количество дней от текущей даты для окончания фильтрации (0 = до следующей недели, 1 = до завтра, 7 = до следующей недели и т.д.)"
           }
         ],
         "responses": {

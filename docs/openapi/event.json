@@ -125,16 +125,17 @@
             "schema": {
               "anyOf": [
                 {
-                  "type": "integer"
+                  "type": "integer",
+                  "minimum": 0
                 },
                 {
                   "type": "null"
                 }
               ],
-              "description": "Event start date as Unix timestamp (seconds). If not provided - current time",
+              "description": "Unix timestamp в секундах (опционально, по умолчанию - текущее время)",
               "title": "Start"
             },
-            "description": "Event start date as Unix timestamp (seconds). If not provided - current time"
+            "description": "Unix timestamp в секундах (опционально, по умолчанию - текущее время)"
           },
           {
             "name": "Name",
@@ -142,10 +143,10 @@
             "required": true,
             "schema": {
               "type": "string",
-              "description": "Event name",
+              "description": "Название события",
               "title": "Name"
             },
-            "description": "Event name"
+            "description": "Название события"
           },
           {
             "name": "Note",
@@ -160,10 +161,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Event note",
+              "description": "Описание события",
               "title": "Note"
             },
-            "description": "Event note"
+            "description": "Описание события"
           },
           {
             "name": "Type",
@@ -171,11 +172,13 @@
             "required": false,
             "schema": {
               "type": "integer",
-              "description": "Event type (0=default, 1=meeting, 2=development, 3=demo, 4=informal)",
+              "maximum": 4,
+              "minimum": 0,
+              "description": "Тип событий: 0 — Все, 1 — Личное, 2 — Семья, 3 — Работа, 4 — Нет типа.",
               "default": 0,
               "title": "Type"
             },
-            "description": "Event type (0=default, 1=meeting, 2=development, 3=demo, 4=informal)"
+            "description": "Тип событий: 0 — Все, 1 — Личное, 2 — Семья, 3 — Работа, 4 — Нет типа."
           }
         ],
         "responses": {

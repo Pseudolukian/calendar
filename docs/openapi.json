@@ -19,11 +19,11 @@
             "required": false,
             "schema": {
               "type": "integer",
-              "description": "Days from today to start filtering (0 = tomorrow, -1 = today, 1 = tomorrow, etc.)",
+              "description": "Количество дней от текущей даты для начала фильтрации (0 — с завтрашнего дня, -1 — с сегодняшнего дня, 1 — с послезавтрашнего дня)",
               "default": 0,
               "title": "Tf Days"
             },
-            "description": "Days from today to start filtering (0 = tomorrow, -1 = today, 1 = tomorrow, etc.)"
+            "description": "Количество дней от текущей даты для начала фильтрации (0 — с завтрашнего дня, -1 — с сегодняшнего дня, 1 — с послезавтрашнего дня)"
           },
           {
             "name": "after_days",
@@ -31,11 +31,11 @@
             "required": false,
             "schema": {
               "type": "integer",
-              "description": "Days from today to end filtering (0 = next week, 1 = tomorrow, 7 = next week)",
+              "description": "Количество дней от текущей даты для окончания фильтрации (0 = до следующей недели, 1 = до завтра, 7 = до следующей недели и т.д.)",
               "default": 0,
               "title": "After Days"
             },
-            "description": "Days from today to end filtering (0 = next week, 1 = tomorrow, 7 = next week)"
+            "description": "Количество дней от текущей даты для окончания фильтрации (0 = до следующей недели, 1 = до завтра, 7 = до следующей недели и т.д.)"
           }
         ],
         "responses": {
@@ -72,7 +72,7 @@
           "calendar"
         ],
         "summary": "Get Events",
-        "description": "Возвращает список событий с возможностью фильтрации по ID, архивному статусу и типу.\n\nТипы событий:\n- 1: Встречи/планерки\n- 2: Разработка/техническая работа  \n- 3: Демо/презентации\n- 4: Неформальные события",
+        "description": "Возвращает список событий с возможностью фильтрации по ID, архивному статусу и типу.\n\nТипы событий: \n- 0 — Все\n- 1 — Личное\n- 2 — Семья\n- 3 — Работа\n- 4 — Нет типа.",
         "operationId": "get_events_api_Events_get",
         "parameters": [
           {
@@ -88,10 +88,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Comma-separated list of event IDs (e.g., '1,2,3')",
+              "description": "ID событий через запятую (например, '1,2,3')",
               "title": "Ids"
             },
-            "description": "Comma-separated list of event IDs (e.g., '1,2,3')"
+            "description": "ID событий через запятую (например, '1,2,3')"
           },
           {
             "name": "isArchive",
@@ -106,11 +106,11 @@
                   "type": "null"
                 }
               ],
-              "description": "Filter archived events (currently not implemented)",
+              "description": "Показывать прошедшие события",
               "default": false,
               "title": "Isarchive"
             },
-            "description": "Filter archived events (currently not implemented)"
+            "description": "Показывать прошедшие события"
           },
           {
             "name": "type",
@@ -125,10 +125,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Comma-separated list of event types (e.g., '1,2')",
+              "description": "Тип событий через запятую (например, '1,2')",
               "title": "Type"
             },
-            "description": "Comma-separated list of event types (e.g., '1,2')"
+            "description": "Тип событий через запятую (например, '1,2')"
           }
         ],
         "responses": {
@@ -175,16 +175,17 @@
             "schema": {
               "anyOf": [
                 {
-                  "type": "integer"
+                  "type": "integer",
+                  "minimum": 0
                 },
                 {
                   "type": "null"
                 }
               ],
-              "description": "Event start date as Unix timestamp (seconds). If not provided - current time",
+              "description": "Unix timestamp в секундах (опционально, по умолчанию - текущее время)",
               "title": "Start"
             },
-            "description": "Event start date as Unix timestamp (seconds). If not provided - current time"
+            "description": "Unix timestamp в секундах (опционально, по умолчанию - текущее время)"
           },
           {
             "name": "Name",
@@ -192,10 +193,10 @@
             "required": true,
             "schema": {
               "type": "string",
-              "description": "Event name",
+              "description": "Название события",
               "title": "Name"
             },
-            "description": "Event name"
+            "description": "Название события"
           },
           {
             "name": "Note",
@@ -210,10 +211,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Event note",
+              "description": "Описание события",
               "title": "Note"
             },
-            "description": "Event note"
+            "description": "Описание события"
           },
           {
             "name": "Type",
@@ -221,11 +222,13 @@
             "required": false,
             "schema": {
               "type": "integer",
-              "description": "Event type (0=default, 1=meeting, 2=development, 3=demo, 4=informal)",
+              "maximum": 4,
+              "minimum": 0,
+              "description": "Тип событий: 0 — Все, 1 — Личное, 2 — Семья, 3 — Работа, 4 — Нет типа.",
               "default": 0,
               "title": "Type"
             },
-            "description": "Event type (0=default, 1=meeting, 2=development, 3=demo, 4=informal)"
+            "description": "Тип событий: 0 — Все, 1 — Личное, 2 — Семья, 3 — Работа, 4 — Нет типа."
           }
         ],
         "responses": {
