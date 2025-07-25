@@ -1,0 +1,209 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Calendar API",
+    "version": "0.1.0"
+  },
+  "servers": [],
+  "components": {
+    "schemas": {
+      "AcceptedEventCreated": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "title": "AcceptedEventCreated"
+      },
+      "AcceptedEventData": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "type": {
+            "type": "integer",
+            "title": "Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "start",
+          "name",
+          "type"
+        ],
+        "title": "AcceptedEventData"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  },
+  "paths": {
+    "/api/Event": {
+      "post": {
+        "tags": [
+          "calendar"
+        ],
+        "summary": "Create Event",
+        "description": "Записывает event в BD и возвращает сообщение об успешном создании события\n\nПараметры:\n- Start: Unix timestamp в секундах (опционально, по умолчанию - текущее время)\n- Name: Название события (обязательно)\n- Note: Описание события (опционально)\n- Type: Тип события (0-4)",
+        "operationId": "create_event_api_Event_post",
+        "parameters": [
+          {
+            "name": "Start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Unix timestamp в секундах (опционально, по умолчанию - текущее время)",
+              "title": "Start"
+            },
+            "description": "Unix timestamp в секундах (опционально, по умолчанию - текущее время)"
+          },
+          {
+            "name": "Name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Название события",
+              "title": "Name"
+            },
+            "description": "Название события"
+          },
+          {
+            "name": "Note",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Описание события",
+              "title": "Note"
+            },
+            "description": "Описание события"
+          },
+          {
+            "name": "Type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 4,
+              "minimum": 0,
+              "description": "Тип событий: 0 — Все, 1 — Личное, 2 — Семья, 3 — Работа, 4 — Нет типа.",
+              "default": 0,
+              "title": "Type"
+            },
+            "description": "Тип событий: 0 — Все, 1 — Личное, 2 — Семья, 3 — Работа, 4 — Нет типа."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AcceptedEventCreated"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

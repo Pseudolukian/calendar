@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://localhost:8000/</loc>
+         <lastmod>2025-07-25</lastmod>
+    </url>
+    <url>
+         <loc>https://localhost:8000/oop/</loc>
+         <lastmod>2025-07-25</lastmod>
+    </url>
+    <url>
+         <loc>https://localhost:8000/api/calendar/</loc>
+         <lastmod>2025-07-25</lastmod>
+    </url>
+    <url>
+         <loc>https://localhost:8000/api/event/</loc>
+         <lastmod>2025-07-25</lastmod>
+    </url>
+    <url>
+         <loc>https://localhost:8000/api/events/</loc>
+         <lastmod>2025-07-25</lastmod>
+    </url>
+    <url>
+         <loc>https://localhost:8000/snipets/architecture/</loc>
+         <lastmod>2025-07-25</lastmod>
+    </url>
+</urlset>
